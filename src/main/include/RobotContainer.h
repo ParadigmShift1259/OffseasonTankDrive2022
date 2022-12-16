@@ -5,6 +5,12 @@
 #pragma once
 
 #include <frc2/command/Command.h>
+#include <frc2/command/RamseteCommand.h>
+#include <frc/trajectory/Trajectory.h>
+#include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
+#include <frc2/command/InstantCommand.h>
+#include <vector>
 
 #include "commands/ExampleCommand.h"
 #include "subsystems/DriveSubsystem.h"
@@ -22,12 +28,16 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+  frc2::SequentialCommandGroup* GetCommandGroup();
+  frc2::RamseteCommand GetCommandPath();
 
  private:
   // The robot's subsystems and commands are defined here...
   DriveSubsystem m_drive;
   ExampleSubsystem m_Subsystem;
-  ExampleCommand m_autonomousCommand;
+  frc2::Command* m_autonomousCommand = nullptr;
+  frc::Trajectory m_trajectory;
+  frc::RamseteController m_ramseteController;
 
   frc::XboxController m_primaryController{0};
 
